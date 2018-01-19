@@ -1,95 +1,115 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <title>Vue</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- CSRF Stuff -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        window.Laravel = {
+            csrfToken: '{{ csrf_token() }}'
+        }
+    </script>
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Styles -->
+    <!-- <style>
+        html,
+        body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 100;
+            height: 100vh;
+            margin: 0;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        .title {
+            font-size: 84px;
+        }
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+        .links>a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- <div class="flex-center position-ref full-height">
+        @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+            <a href="{{ url('/home') }}">Home</a>
+            @else
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Register</a>
+            @endauth
         </div>
-    </body>
+        @endif
+
+        <div class="content">
+            <div class="title m-b-md">
+                Laravel
+            </div>
+
+            <div class="links">
+                <a href="https://laravel.com/docs">Documentation</a>
+                <a href="https://laracasts.com">Laracasts</a>
+                <a href="https://laravel-news.com">News</a>
+                <a href="https://forge.laravel.com">Forge</a>
+                <a href="https://github.com/laravel/laravel">GitHub</a>
+            </div>
+            <script src="{{ asset('js/app.js') }}"></script>
+        </div>
+    </div> -->
+    <div class="container" id='app'>
+        <spell-list></spell-list>
+    </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
 </html>
