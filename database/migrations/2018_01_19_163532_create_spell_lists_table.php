@@ -21,9 +21,9 @@ class CreateSpellListsTable extends Migration
             $table->string('range', 50);
             $table->string('components', 20);
             $table->string('material', 1000)->nullable();
-            $table->string('ritual', 10);
+            $table->boolean('ritual');
             $table->string('duration', 50);
-            $table->string('concentration', 10);
+            $table->boolean('concentration');
             $table->string('casting_time', 30);
             $table->string('level', 30);
             $table->string('school', 50);

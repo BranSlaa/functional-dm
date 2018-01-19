@@ -1,23 +1,21 @@
+<style>
+.spellList:nth-child(odd) {
+    background-color: #ddd;
+}
+</style>
 <template>
     <div class='row'>
         <h1>All Spells</h1>
         <input type="text" v-model="search" placeholder="Spell name.."/>
         <ul class="list-group">
             <li v-if='spellList.length === 0'>There are no spells yet!</li>
-            <li class="list-group-item" v-for="spell in filteredList">
-                 {{ spell.name }}
+            <li class="list-group-item spellList" v-for="spell in filteredList">
+                 {{ spell.name }} - {{ spell.school}} - {{ spell.class}} - <span v-html="spell.desc">{{ spell.desc }}</span>
             </li>
         </ul>
     </div>
 </template>
 <script>
-class Spell {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-
 export default {
     data() {
         return {
@@ -28,9 +26,17 @@ export default {
     computed: {
         filteredList() {
             return this.spellList.filter(spell => {
-                return spell.name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
+                return (
+                    spell.name
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase()) ||
+                    spell.school
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase()) ||
+                    spell.class
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase())
+                );
             });
         }
     },
