@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Functional DM'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://functionaldm.herokuapp.com/'),//'http://localhost'),
+    'url' => env('APP_URL', 'functionaldm.herokuapp.com'),//'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
