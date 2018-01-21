@@ -1,22 +1,65 @@
-<style>
-.spellList:nth-child(odd) {
-    background-color: #ddd;
+<style lang="scss">
+.filters {
+    display: flex;
+    justify-content: center;
 }
-.highlight {
-    color: #bb0000;
-    font-weight: bolder;
+
+.spellList {
+    display: grid;
+    grid-gap: 2rem;
+    // grid-template-columns: repeat(5, 15%);
+    // grid-template-rows: 100px 100px 100px;
+    // grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-content: center;
+
+    .spellCard {
+        text-align: center;
+        border: 1px solid #000;
+    }
+
+    .highlight {
+        color: #bb0000;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
 }
 </style>
 <template>
-    <div class='row'>
-        <h1>All Spells</h1>
-        <input type="text" v-model="search" placeholder="Spell name.."/>
-        <ul class="list-group">
-            <li v-if='spellList.length === 0'>There are no spells yet!</li>
-            <li class="list-group-item spellList" v-for="spell in filteredList">
-                 <span v-html="highlight(spell.name, search)"></span> - <span v-html="highlight(spell.school, search)"></span> - <span v-html="highlight(spell.class, search)"></span> - <span v-html="highlight(spell.desc, search)"></span>
-            </li>
-        </ul>
+    <div>
+        <div class="filters">
+            <h1>All Spells</h1>
+            <input type="text" v-model="search" placeholder="Spell name.."/>
+        </div>
+
+        <div class="list-group spellList">
+            <p v-if='spellList.length === 0'>There are no spells yet!</p>
+            <div v-for="spell in filteredList" :key="spell.id">
+                 <div class="spellCard" v-on:click="toggleSpellModal(true, spell)">
+                     <h2 v-html="highlight(spell.name, search)"></h2>
+                     <p v-html="highlight(spell.class, search)"></p>
+                     <p v-html="highlight(spell.school, search)"></p>
+                     <p>Casting Time: <span>{{ spell.casting_time }}</span></p>
+                     <p>Duration: <span>{{ spell.duration }}</span></p>
+                 </div>
+            </div>
+        </div>
+
+        <transition name="modal">
+        <div class="modal-mask" @click="toggleSpellModal(false)" v-show="show">
+            <div class="modal-container" @click.stop>
+                <slot></slot>
+                <p>{{currentSpell.name}}</p><br/>
+                <p>{{currentSpell.class}}</p><br/>
+                <p>{{currentSpell.school}}</p><br/>
+                <p>{{currentSpell.classification}}</p><br/>
+                <p>{{currentSpell.casting_time}}</p><br/>
+                <p>{{currentSpell.duration}}</p><br/>
+                <p>{{currentSpell.level}}</p><br/>
+                <p v-html="currentSpell.desc"></p>
+            </div>
+        </div>
+    </transition>
     </div>
 </template>
 <script>
@@ -24,7 +67,9 @@ export default {
     data() {
         return {
             search: "",
-            spellList: []
+            spellList: [],
+            show: false,
+            currentSpell: []
         };
     },
     computed: {
@@ -81,10 +126,15 @@ export default {
             if (search !== "") {
                 return word.replace(
                     pattern,
-                    `<span class='highlight'>${search.toUpperCase()}</span>`
+                    `<span class='highlight'>${search}</span>`
                 );
             }
             return word;
+        },
+
+        toggleSpellModal(val, spell = []) {
+            this.show = val;
+            this.currentSpell = spell;
         }
     }
 };
