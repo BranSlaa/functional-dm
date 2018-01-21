@@ -1,4 +1,80 @@
 <style lang="scss">
+body.modal-open {
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+.modal-container {
+    width: 80vw;
+    height: 80vh;
+    overflow-y: auto;
+    margin: 40px auto 0;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    transition: all 0.3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+    margin-top: 0;
+    color: #42b983;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.form-label > .form-control {
+    margin-top: 0.5em;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5em 1em;
+    line-height: 1.5;
+    border: 1px solid #ddd;
+}
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
 .filters {
     display: flex;
     justify-content: center;
@@ -26,7 +102,7 @@
 }
 </style>
 <template>
-    <div>
+    <div id="spellCompendium">
         <div class="filters">
             <h1>All Spells</h1>
             <input type="text" v-model="search" placeholder="Spell name.."/>
@@ -133,6 +209,7 @@ export default {
         },
 
         toggleSpellModal(val, spell = []) {
+            document.getElementById("body").classList.toggle("modal-open");
             this.show = val;
             this.currentSpell = spell;
         }
