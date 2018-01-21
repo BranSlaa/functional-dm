@@ -14,9 +14,17 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// const app = new Vue({
+//     el: "#app"
+// });
+
+// Vue.component("modal", require("./components/Modal.vue"));
+// Vue.component("spell-modal", require("./components/SpellModal.vue"));
 Vue.component("spell-list", require("./components/SpellList.vue"));
 
-const app = new Vue({
-    el: "#app"
+new Vue({
+    el: "#app",
+    data: {
+        toggleSpellModal: false
+    }
 });
