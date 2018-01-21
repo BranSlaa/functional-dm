@@ -2,6 +2,10 @@
 .spellList:nth-child(odd) {
     background-color: #ddd;
 }
+.highlight {
+    color: #bb0000;
+    font-weight: bolder;
+}
 </style>
 <template>
     <div class='row'>
@@ -10,7 +14,7 @@
         <ul class="list-group">
             <li v-if='spellList.length === 0'>There are no spells yet!</li>
             <li class="list-group-item spellList" v-for="spell in filteredList">
-                 {{ spell.name }} - {{ spell.school}} - {{ spell.class}} - <span v-html="spell.desc">{{ spell.desc }}</span>
+                 <span v-html="highlight(spell.name, search)"></span> - <span v-html="highlight(spell.school, search)"></span> - <span v-html="highlight(spell.class, search)"></span> - <span v-html="highlight(spell.desc, search)"></span>
             </li>
         </ul>
     </div>
@@ -48,7 +52,6 @@ export default {
     methods: {
         fetchTaskList() {
             axios.get("api/spellList").then(res => {
-                console.log(res.data);
                 this.spellList = res.data;
             });
         },
@@ -71,6 +74,17 @@ export default {
                     this.fetchTaskList();
                 })
                 .catch(err => console.error(err));
+        },
+
+        highlight: function(word, search) {
+            const pattern = new RegExp(search, "i");
+            if (search !== "") {
+                return word.replace(
+                    pattern,
+                    `<span class='highlight'>${search.toUpperCase()}</span>`
+                );
+            }
+            return word;
         }
     }
 };
