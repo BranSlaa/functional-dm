@@ -1,78 +1,6 @@
 <style lang="scss">
-body.modal-open {
-    overflow: hidden;
-}
-
 * {
     box-sizing: border-box;
-}
-
-.modal-mask {
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s ease;
-}
-
-.modal-container {
-    width: 80vw;
-    height: 80vh;
-    overflow-y: auto;
-    margin: 40px auto 0;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    transition: all 0.3s ease;
-    font-family: Helvetica, Arial, sans-serif;
-}
-
-.modal-header h3 {
-    margin-top: 0;
-    color: #42b983;
-}
-
-.modal-body {
-    margin: 20px 0;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 1em;
-}
-
-.form-label > .form-control {
-    margin-top: 0.5em;
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: 0.5em 1em;
-    line-height: 1.5;
-    border: 1px solid #ddd;
-}
-
-.modal-enter {
-    opacity: 0;
-}
-
-.modal-leave-active {
-    opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
 }
 
 .filters {
@@ -83,9 +11,6 @@ body.modal-open {
 .spellList {
     display: grid;
     grid-gap: 2rem;
-    // grid-template-columns: repeat(5, 15%);
-    // grid-template-rows: 100px 100px 100px;
-    // grid-auto-flow: row;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: center;
 
@@ -102,7 +27,7 @@ body.modal-open {
 }
 </style>
 <template>
-    <div id="spellCompendium">
+    <div>
         <div class="filters">
             <h1>All Spells</h1>
             <input type="text" v-model="search" placeholder="Spell name.."/>
@@ -121,25 +46,26 @@ body.modal-open {
             </div>
         </div>
 
-        <transition name="modal">
-        <div class="modal-mask" @click="toggleSpellModal(false)" v-show="show">
-            <div class="modal-container" @click.stop>
-                <slot></slot>
-                <p>{{currentSpell.name}}</p><br/>
-                <p>{{currentSpell.class}}</p><br/>
-                <p>{{currentSpell.school}}</p><br/>
-                <p>{{currentSpell.classification}}</p><br/>
-                <p>{{currentSpell.casting_time}}</p><br/>
-                <p>{{currentSpell.duration}}</p><br/>
-                <p>{{currentSpell.level}}</p><br/>
-                <p v-html="currentSpell.desc"></p>
-            </div>
-        </div>
-    </transition>
+        <modal v-show="show" v-on:close="toggleSpellModal(false)">
+            <p>{{currentSpell.name}}</p>
+            <p>{{currentSpell.class}}</p>
+            <p>{{currentSpell.school}}</p>
+            <p>{{currentSpell.classification}}</p>
+            <p>{{currentSpell.casting_time}}</p>
+            <p>{{currentSpell.duration}}</p>
+            <p>{{currentSpell.level}}</p>
+            <p v-html="currentSpell.desc"></p>
+        </modal>
     </div>
 </template>
 <script>
+import Modal from "./Modal.vue";
+
 export default {
+    name: "spell-compendium",
+    components: {
+        modal: Modal
+    },
     data() {
         return {
             search: "",

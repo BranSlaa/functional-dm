@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('spells');
-});
+Route::get('/', 'PageController@index')->name('home');
+
+Route::get('/spellCompendium', 'PageController@spellCompendium')->name('spellCompendium');
+
+Route::get('/monsterCreator', 'PageController@monsterCreator')->name('monsterCreator');
 
 Route::prefix('api')->group(function() {
     Route::resource('spellList', 'SpellListController');
